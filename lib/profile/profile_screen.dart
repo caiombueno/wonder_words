@@ -12,21 +12,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          const SizedBox(
-            height: 100.0,
+    const bool _isLogged = true;
+
+    return const Scaffold(
+        body: _isLogged ? _IsLoggedBody() : _IsNotLoggedBody());
+  }
+}
+
+class _IsLoggedBody extends StatelessWidget {
+  const _IsLoggedBody({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const String username = 'edsonbueno';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const SizedBox(height: 149.0),
+        const Center(
+          child: Text(
+            'Hi, $username!',
+            style: TextStyle(fontSize: 38.0),
           ),
-          const _SignInButton(),
-          const _DontHaveAccountOption(),
-          const SizedBox(
-            height: 50.0,
+        ),
+        const SizedBox(
+          height: 85,
+        ),
+        const _UpdateProfileListTile(),
+        const SizedBox(
+          height: 35,
+        ),
+        _DarkModePreferences(),
+        const SizedBox(
+          height: 240,
+        ),
+        const _SignOutButton(),
+      ],
+    );
+  }
+}
+
+class _IsNotLoggedBody extends StatelessWidget {
+  const _IsNotLoggedBody({Key? key}) : super(key: key);
+  final int? val = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const SizedBox(height: 100.0),
+        const _SignInButton(),
+        const _DontHaveAccountOption(),
+        const SizedBox(
+          height: 50.0,
+        ),
+        _DarkModePreferences(val: val),
+      ],
+    );
+  }
+}
+
+class _UpdateProfileListTile extends StatelessWidget {
+  const _UpdateProfileListTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const <Widget>[
+        Divider(),
+        ListTile(
+          leading: Text(
+            'Update Profile',
+            style: TextStyle(fontSize: 18),
           ),
-          _DarkModePreferences(val: val),
-        ],
-      ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            size: 15.0,
+          ),
+        ),
+        Divider(
+          height: 0,
+        ),
+      ],
     );
   }
 }
@@ -59,6 +128,43 @@ class _SignInButton extends StatelessWidget {
                 width: 8.0,
               ),
               Text('Sign In'),
+            ],
+          ),
+          onPressed: () {},
+        ),
+      ),
+    );
+  }
+}
+
+class _SignOutButton extends StatelessWidget {
+  const _SignOutButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 15.0,
+        right: 15.0,
+      ),
+      child: SizedBox(
+        width: 400.0,
+        height: 48.0,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.black),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const <Widget>[
+              SizedBox(
+                width: 140.0,
+              ),
+              Icon(Icons.login),
+              SizedBox(
+                width: 8.0,
+              ),
+              Text('Sign Out'),
             ],
           ),
           onPressed: () {},
