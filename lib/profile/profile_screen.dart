@@ -8,32 +8,30 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  int? val = 1;
+  final bool _isLogged = true;
 
   @override
   Widget build(BuildContext context) {
-    const bool _isLogged = true;
-
-    return const Scaffold(
-        body: _isLogged ? _IsLoggedBody() : _IsNotLoggedBody());
+    return Scaffold(
+        body: _isLogged ? const _LoggedBody() : const _NotLoggedBody());
   }
 }
 
-class _IsLoggedBody extends StatelessWidget {
-  const _IsLoggedBody({Key? key}) : super(key: key);
+class _LoggedBody extends StatelessWidget {
+  const _LoggedBody({Key? key}) : super(key: key);
+
+  final String username = 'edsonbueno';
 
   @override
   Widget build(BuildContext context) {
-    const String username = 'edsonbueno';
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+      children: [
         const SizedBox(height: 149.0),
-        const Center(
+        Center(
           child: Text(
             'Hi, $username!',
-            style: TextStyle(fontSize: 38.0),
+            style: const TextStyle(fontSize: 38.0),
           ),
         ),
         const SizedBox(
@@ -43,7 +41,7 @@ class _IsLoggedBody extends StatelessWidget {
         const SizedBox(
           height: 35,
         ),
-        _DarkModePreferences(),
+        const _DarkModePreferences(),
         const SizedBox(
           height: 240,
         ),
@@ -53,22 +51,22 @@ class _IsLoggedBody extends StatelessWidget {
   }
 }
 
-class _IsNotLoggedBody extends StatelessWidget {
-  const _IsNotLoggedBody({Key? key}) : super(key: key);
+class _NotLoggedBody extends StatelessWidget {
+  const _NotLoggedBody({Key? key}) : super(key: key);
   final int? val = 1;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        const SizedBox(height: 100.0),
-        const _SignInButton(),
-        const _DontHaveAccountOption(),
-        const SizedBox(
+      children: const <Widget>[
+        SizedBox(height: 100.0),
+        _SignInButton(),
+        _DontHaveAccountOption(),
+        SizedBox(
           height: 50.0,
         ),
-        _DarkModePreferences(val: val),
+        _DarkModePreferences(),
       ],
     );
   }
@@ -198,18 +196,21 @@ class _DontHaveAccountOption extends StatelessWidget {
 }
 
 class _DarkModePreferences extends StatefulWidget {
-  _DarkModePreferences({Key? key, this.val}) : super(key: key);
-  int? val;
+  const _DarkModePreferences({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<_DarkModePreferences> createState() => _DarkModePreferencesState();
 }
 
 class _DarkModePreferencesState extends State<_DarkModePreferences> {
+  int val = 1;
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         const Text(
           'Dark Mode Preferences',
           style: TextStyle(
@@ -218,15 +219,17 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
           ),
         ),
         const SizedBox(height: 20.0),
-        RadioListTile<int?>(
+        RadioListTile<int>(
           title: const Text('Always Dark'),
           value: 1,
-          groupValue: widget.val,
+          groupValue: val,
           activeColor: Colors.black,
           onChanged: (int? value) {
-            setState(() {
-              widget.val = value;
-            });
+            if (value != null) {
+              setState(() {
+                val = value;
+              });
+            }
           },
         ),
         const Divider(
@@ -235,12 +238,14 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
         RadioListTile<int?>(
           title: const Text('Always Light'),
           value: 2,
-          groupValue: widget.val,
+          groupValue: val,
           activeColor: Colors.black,
           onChanged: (int? value) {
-            setState(() {
-              widget.val = value;
-            });
+            if (value != null) {
+              setState(() {
+                val = value;
+              });
+            }
           },
         ),
         const Divider(
@@ -249,12 +254,14 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
         RadioListTile<int?>(
           title: const Text('Use System Settings'),
           value: 3,
-          groupValue: widget.val,
+          groupValue: val,
           activeColor: Colors.black,
           onChanged: (int? value) {
-            setState(() {
-              widget.val = value;
-            });
+            if (value != null) {
+              setState(() {
+                val = value;
+              });
+            }
           },
         ),
       ],
