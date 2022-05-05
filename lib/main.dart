@@ -8,7 +8,7 @@ void main() => runApp(
       const MyApp(),
     );
 
-final routes = RouteMap(
+final _routes = RouteMap(
   routes: {
     '/': (_) => const CupertinoTabPage(
           child: MyHomePage(),
@@ -20,7 +20,7 @@ final routes = RouteMap(
 );
 
 // https://stackoverflow.com/questions/52577366/error-while-changing-the-flutter-theme-color-to-black
-const MaterialColor primaryBlack = MaterialColor(
+const MaterialColor _primaryBlack = MaterialColor(
   _blackPrimaryValue,
   <int, Color>{
     50: Color(0xFF000000),
@@ -46,11 +46,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'WonderWords',
-      routerDelegate: RoutemasterDelegate(routesBuilder: (_) => routes),
+      routerDelegate: RoutemasterDelegate(routesBuilder: (_) => _routes),
       routeInformationParser: const RoutemasterParser(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: primaryBlack,
+          primarySwatch: _primaryBlack,
         ),
       ),
     );
