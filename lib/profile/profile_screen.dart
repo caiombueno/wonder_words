@@ -10,20 +10,37 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  static const bool _isLogged = false;
+  bool _isLogged = false;
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _isLogged ? _SignedInBody() : _SignedOutBody(),
+    return Scaffold(
+      body: _isLogged
+          ? _SignedInBody(
+              onSignOutButtonTap: () {
+                setState(() {
+                  _isLogged = false;
+                });
+              },
+            )
+          : _SignedOutBody(
+              onSignInButtonTap: () {
+                setState(() {
+                  _isLogged = true;
+                });
+              },
+            ),
     );
   }
 }
 
 class _SignedInBody extends StatelessWidget {
   const _SignedInBody({
+    this.onSignOutButtonTap,
     Key? key,
   }) : super(key: key);
+
+  final void Function()? onSignOutButtonTap;
 
   static const String _username = 'edsonbueno';
 
@@ -31,11 +48,11 @@ class _SignedInBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(
+      children: [
+        const SizedBox(
           height: 149.0,
         ),
-        Center(
+        const Center(
           child: Text(
             'Hi, $_username!',
             style: TextStyle(
@@ -43,40 +60,48 @@ class _SignedInBody extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 85,
         ),
-        _UpdateProfileListTile(),
-        SizedBox(
+        const _UpdateProfileListTile(),
+        const SizedBox(
           height: 35,
         ),
-        _DarkModePreferences(),
-        SizedBox(
+        const _DarkModePreferences(),
+        const SizedBox(
           height: 240,
         ),
-        _SignOutButton(),
+        _SignOutButton(
+          onTap: onSignOutButtonTap,
+        ),
       ],
     );
   }
 }
 
 class _SignedOutBody extends StatelessWidget {
-  const _SignedOutBody({Key? key}) : super(key: key);
+  const _SignedOutBody({
+    this.onSignInButtonTap,
+    Key? key,
+  }) : super(key: key);
+  final void Function()? onSignInButtonTap;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        SizedBox(
+      children: [
+        const SizedBox(
           height: 100.0,
         ),
-        _SignInButton(),
-        _SignUpButton(),
-        SizedBox(
+        _SignInButton(
+          onTap: onSignInButtonTap,
+        ),
+        const _SignUpButton(),
+        const SizedBox(
           height: 50.0,
         ),
-        _DarkModePreferences(),
+        const _DarkModePreferences(),
       ],
     );
   }
@@ -114,8 +139,10 @@ class _UpdateProfileListTile extends StatelessWidget {
 
 class _SignInButton extends StatelessWidget {
   const _SignInButton({
+    this.onTap,
     Key? key,
   }) : super(key: key);
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +155,7 @@ class _SignInButton extends StatelessWidget {
         width: 400.0,
         height: 48.0,
         child: ElevatedButton(
+          onPressed: onTap,
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.black),
           ),
@@ -141,10 +169,11 @@ class _SignInButton extends StatelessWidget {
               SizedBox(
                 width: 8.0,
               ),
-              Text('Sign In'),
+              Text(
+                'Sign In',
+              ),
             ],
           ),
-          onPressed: () {},
         ),
       ),
     );
@@ -152,7 +181,11 @@ class _SignInButton extends StatelessWidget {
 }
 
 class _SignOutButton extends StatelessWidget {
-  const _SignOutButton({Key? key}) : super(key: key);
+  const _SignOutButton({
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -165,12 +198,15 @@ class _SignOutButton extends StatelessWidget {
         width: 400.0,
         height: 48.0,
         child: ElevatedButton(
+          onPressed: onTap,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.black),
+            backgroundColor: MaterialStateProperty.all(
+              Colors.black,
+            ),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: const <Widget>[
+            children: const [
               SizedBox(
                 width: 140.0,
               ),
@@ -181,7 +217,6 @@ class _SignOutButton extends StatelessWidget {
               Text('Sign Out'),
             ],
           ),
-          onPressed: () {},
         ),
       ),
     );
@@ -189,21 +224,31 @@ class _SignOutButton extends StatelessWidget {
 }
 
 class _SignUpButton extends StatelessWidget {
-  const _SignUpButton({Key? key}) : super(key: key);
+  const _SignUpButton({
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(
+        top: 20.0,
+      ),
       child: Column(
         children: <Widget>[
-          const Text('Don\'t have an account?'),
+          const Text(
+            'Don\'t have an account?',
+          ),
           TextButton(
+            onPressed: () {},
             child: const Text(
               'Sign up',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ),
-            onPressed: () {},
           )
         ],
       ),
@@ -221,7 +266,7 @@ class _DarkModePreferences extends StatefulWidget {
 }
 
 class _DarkModePreferencesState extends State<_DarkModePreferences> {
-  int listTielGroupValue = 1;
+  int _listTileGroupValue = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -240,12 +285,12 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
         RadioListTile<int>(
           title: const Text('Always Dark'),
           value: 1,
-          groupValue: listTielGroupValue,
+          groupValue: _listTileGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                listTielGroupValue = value;
+                _listTileGroupValue = value;
               });
             }
           },
@@ -258,12 +303,12 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
             'Always Light',
           ),
           value: 2,
-          groupValue: listTielGroupValue,
+          groupValue: _listTileGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                listTielGroupValue = value;
+                _listTileGroupValue = value;
               });
             }
           },
@@ -276,12 +321,12 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
             'Use System Settings',
           ),
           value: 3,
-          groupValue: listTielGroupValue,
+          groupValue: _listTileGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                listTielGroupValue = value;
+                _listTileGroupValue = value;
               });
             }
           },
