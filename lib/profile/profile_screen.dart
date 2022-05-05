@@ -1,68 +1,78 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final bool _isLogged = false;
+  static const bool _isLogged = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: _isLogged ? const _LoggedBody() : const _NotLoggedBody());
+    return const Scaffold(
+      body: _isLogged ? _SignedInBody() : _SignedOutBody(),
+    );
   }
 }
 
-class _LoggedBody extends StatelessWidget {
-  const _LoggedBody({Key? key}) : super(key: key);
+class _SignedInBody extends StatelessWidget {
+  const _SignedInBody({
+    Key? key,
+  }) : super(key: key);
 
-  final String username = 'edsonbueno';
+  static const String _username = 'edsonbueno';
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(height: 149.0),
+      children: const [
+        SizedBox(
+          height: 149.0,
+        ),
         Center(
           child: Text(
-            'Hi, $username!',
-            style: const TextStyle(fontSize: 38.0),
+            'Hi, $_username!',
+            style: TextStyle(
+              fontSize: 38.0,
+            ),
           ),
         ),
-        const SizedBox(
+        SizedBox(
           height: 85,
         ),
-        const _UpdateProfileListTile(),
-        const SizedBox(
+        _UpdateProfileListTile(),
+        SizedBox(
           height: 35,
         ),
-        const _DarkModePreferences(),
-        const SizedBox(
+        _DarkModePreferences(),
+        SizedBox(
           height: 240,
         ),
-        const _SignOutButton(),
+        _SignOutButton(),
       ],
     );
   }
 }
 
-class _NotLoggedBody extends StatelessWidget {
-  const _NotLoggedBody({Key? key}) : super(key: key);
-  final int? val = 1;
+class _SignedOutBody extends StatelessWidget {
+  const _SignedOutBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const <Widget>[
-        SizedBox(height: 100.0),
+      children: const [
+        SizedBox(
+          height: 100.0,
+        ),
         _SignInButton(),
-        _DontHaveAccountOption(),
+        _SignUpButton(),
         SizedBox(
           height: 50.0,
         ),
@@ -73,7 +83,9 @@ class _NotLoggedBody extends StatelessWidget {
 }
 
 class _UpdateProfileListTile extends StatelessWidget {
-  const _UpdateProfileListTile({Key? key}) : super(key: key);
+  const _UpdateProfileListTile({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +95,9 @@ class _UpdateProfileListTile extends StatelessWidget {
         ListTile(
           leading: Text(
             'Update Profile',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
           ),
           trailing: Icon(
             Icons.arrow_forward_ios,
@@ -99,7 +113,9 @@ class _UpdateProfileListTile extends StatelessWidget {
 }
 
 class _SignInButton extends StatelessWidget {
-  const _SignInButton({Key? key}) : super(key: key);
+  const _SignInButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -172,8 +188,8 @@ class _SignOutButton extends StatelessWidget {
   }
 }
 
-class _DontHaveAccountOption extends StatelessWidget {
-  const _DontHaveAccountOption({Key? key}) : super(key: key);
+class _SignUpButton extends StatelessWidget {
+  const _SignUpButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +221,7 @@ class _DarkModePreferences extends StatefulWidget {
 }
 
 class _DarkModePreferencesState extends State<_DarkModePreferences> {
-  int val = 1;
+  int listTielGroupValue = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -218,16 +234,18 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 20.0),
+        const SizedBox(
+          height: 20.0,
+        ),
         RadioListTile<int>(
           title: const Text('Always Dark'),
           value: 1,
-          groupValue: val,
+          groupValue: listTielGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                val = value;
+                listTielGroupValue = value;
               });
             }
           },
@@ -236,14 +254,16 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
           height: 1,
         ),
         RadioListTile<int?>(
-          title: const Text('Always Light'),
+          title: const Text(
+            'Always Light',
+          ),
           value: 2,
-          groupValue: val,
+          groupValue: listTielGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                val = value;
+                listTielGroupValue = value;
               });
             }
           },
@@ -252,14 +272,16 @@ class _DarkModePreferencesState extends State<_DarkModePreferences> {
           height: 1,
         ),
         RadioListTile<int?>(
-          title: const Text('Use System Settings'),
+          title: const Text(
+            'Use System Settings',
+          ),
           value: 3,
-          groupValue: val,
+          groupValue: listTielGroupValue,
           activeColor: Colors.black,
           onChanged: (int? value) {
             if (value != null) {
               setState(() {
-                val = value;
+                listTielGroupValue = value;
               });
             }
           },

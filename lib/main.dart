@@ -4,7 +4,9 @@ import 'package:routemaster/routemaster.dart';
 import 'package:wonder_words/profile/profile_screen.dart';
 import 'package:wonder_words/quotes/quotes_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(
+      const MyApp(),
+    );
 
 final routes = RouteMap(
   routes: {
@@ -36,11 +38,14 @@ const MaterialColor primaryBlack = MaterialColor(
 const int _blackPrimaryValue = 0xFF000000;
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'WonderWords',
       routerDelegate: RoutemasterDelegate(routesBuilder: (_) => routes),
       routeInformationParser: const RoutemasterParser(),
       theme: ThemeData(
@@ -53,7 +58,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
