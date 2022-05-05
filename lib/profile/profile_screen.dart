@@ -8,7 +8,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final bool _isLogged = true;
+  final bool _isLogged = false;
 
   @override
   Widget build(BuildContext context) {
