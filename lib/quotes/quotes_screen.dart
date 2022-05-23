@@ -114,8 +114,8 @@ class _ChipFilters extends StatelessWidget {
             width: 15,
           ),
           _QuotesChip(
-            chipTitle: 'Favorites',
-            chipAvatar: CircleAvatar(
+            title: 'Favorites',
+            avatar: CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(
                 CupertinoIcons.heart,
@@ -127,43 +127,43 @@ class _ChipFilters extends StatelessWidget {
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Life',
+            title: 'Life',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Happiness',
+            title: 'Happiness',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Work',
+            title: 'Work',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Nature',
+            title: 'Nature',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Science',
+            title: 'Science',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Love',
+            title: 'Love',
           ),
           SizedBox(
             width: 10,
           ),
           _QuotesChip(
-            chipTitle: 'Funny',
+            title: 'Funny',
           ),
           SizedBox(
             width: 10,
@@ -176,32 +176,32 @@ class _ChipFilters extends StatelessWidget {
 
 class _QuotesChip extends StatelessWidget {
   const _QuotesChip({
+    required this.title,
+    this.avatar,
     Key? key,
-    required this.chipTitle,
-    this.chipAvatar,
   }) : super(key: key);
 
-  final String chipTitle;
-  final Widget? chipAvatar;
+  final String title;
+  final Widget? avatar;
 
   @override
   Widget build(BuildContext context) {
     return Chip(
       side: const BorderSide(),
       label: Text(
-        chipTitle,
+        title,
       ),
       backgroundColor: Colors.white,
-      avatar: chipAvatar,
+      avatar: avatar,
     );
   }
 }
 
 class _QuotesCard extends StatelessWidget {
   const _QuotesCard({
-    Key? key,
     required this.content,
     required this.author,
+    Key? key,
   }) : super(key: key);
   final String content;
   final String author;
